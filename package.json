@@ -1,0 +1,60 @@
+{
+  "name": "moysklad-instance",
+  "version": "1.0.1",
+  "description": "Преднастроенная конфигурация библиотеки moysklad",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "files": [
+    "build/src/"
+  ],
+  "scripts": {
+    "env:example": "npx sync-dotenv",
+    "compile:dev": "tsc",
+    "compile": "rm -rf build/ && tsc --build tsconfig.prod.json",
+    "lint": "eslint . --fix",
+    "build:dev": "npm run lint && npm run compile:dev",
+    "build": "rm -rf build/ && npm run lint && npm run compile"
+  },
+  "keywords": [
+    "moysklad",
+    "wms",
+    "crm"
+  ],
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "quoteProps": "consistent",
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "printWidth": 80
+  },
+  "author": {
+    "name": "Vitaliy V. Makeev",
+    "email": "w.makeev@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0",
+    "lodash.once": "^4.1.1",
+    "moysklad": "^0.10.0",
+    "moysklad-fetch-planner": "^0.0.3",
+    "moysklad-helpers": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/lodash.once": "^4.1.6",
+    "@types/node": "^14.17.3",
+    "@types/tape": "^4.13.0",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "@typescript-eslint/typescript-estree": "^4.27.0",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "source-map-support": "^0.5.19",
+    "tape": "^5.2.2",
+    "typescript": "^4.3.4",
+    "typescript-eslint-language-service": "^4.1.4"
+  }
+}
