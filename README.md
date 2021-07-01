@@ -1,3 +1,3 @@
-# vensi-invoice-discount-calculate
+# moysklad-instance
 
-> Расчет скидки для выставления счета
+> Преднастроенная конфигурация библиотеки moysklad с набором утилит
