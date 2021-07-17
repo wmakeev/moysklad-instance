@@ -1,5 +1,5 @@
 import test from 'tape'
-import { getHelpers, getInstance } from '../src'
+import { getInstance } from '../src'
 
 test('getInstance', async t => {
   const ms = getInstance()
@@ -11,15 +11,4 @@ test('getInstance', async t => {
   })
 
   t.ok(order.rows[0].name)
-})
-
-test('getHelpers', t => {
-  const { href } = getHelpers()
-
-  t.strictEquals(
-    href('entity/customerorder'),
-    'https://online.moysklad.ru/api/remap/1.2/entity/customerorder'
-  )
-
-  t.end()
 })
