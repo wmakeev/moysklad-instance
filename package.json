@@ -1,6 +1,6 @@
 {
   "name": "moysklad-instance",
-  "version": "1.0.1",
+  "version": "2.0.0-beta.1",
   "description": "Преднастроенная конфигурация библиотеки moysklad",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -13,7 +13,9 @@
     "compile": "rm -rf build/ && tsc --build tsconfig.prod.json",
     "lint": "eslint . --fix",
     "build:dev": "npm run lint && npm run compile:dev",
-    "build": "rm -rf build/ && npm run lint && npm run compile"
+    "build": "rm -rf build/ && npm run lint && npm run compile",
+    "git:tag": "git tag \"v$(cat package.json | json version)\"",
+    "npm:publish": "npm run build && npm publish && npm run git:tag"
   },
   "keywords": [
     "moysklad",
@@ -37,8 +39,7 @@
     "isomorphic-fetch": "^3.0.0",
     "lodash.once": "^4.1.1",
     "moysklad": "^0.10.0",
-    "moysklad-fetch-planner": "^0.0.3",
-    "moysklad-helpers": "^2.0.4"
+    "moysklad-fetch-planner": "^0.0.3"
   },
   "devDependencies": {
     "@types/lodash.once": "^4.1.6",
