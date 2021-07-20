@@ -61,6 +61,11 @@ async function testCases() {
   })
   t2_1
 
+  const t2_2 = await ms.PUT('entity/customerorder/new', {
+    foo: 'bar'
+  })
+  t2_2.positions.rows[0].quantity
+
   // POST
 
   const t3_1 = await ms.POST('entity/customerorder', [

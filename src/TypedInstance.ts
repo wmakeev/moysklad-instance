@@ -1,25 +1,21 @@
-import type { Query, RequestOptions, Instance } from 'moysklad'
+import type { Instance, Query, RequestOptions } from 'moysklad'
 import type {
   Collection,
   CompanyAccountCollectionEndpoint,
-  DocumentTemplateEndpoint,
   DomineEntityCollectionEndpoint,
   DomineEntityEndpoint,
   EntityByMetaType,
   Expand,
+  ImplementedDocumentsMetaType,
   Meta,
   Patch,
-  Template
+  PrefilledDocument,
+  PrefilledDocumentEndpoint
 } from 'moysklad-api-model'
 
 export interface QueryWithExpand<T extends string | undefined> extends Query {
   expand?: T
 }
-
-/**
- * Реализованные типы (для поддержки Template)
- */
-type _TemplateMetaType = 'invoicein' | 'invoiceout' | 'customerorder'
 
 export type TypedInstance = {
   //#region GET entity/{Company}/{id}/accounts
@@ -127,15 +123,15 @@ export type TypedInstance = {
    * @param query
    * @param options
    */
-  PUT<P extends DocumentTemplateEndpoint, E extends string | undefined>(
+  PUT<P extends PrefilledDocumentEndpoint, E extends string | undefined>(
     path: P,
     payload: any, // TODO PUT entity/{type}/new payload
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): P extends DocumentTemplateEndpoint<infer M>
+  ): P extends PrefilledDocumentEndpoint<infer M>
     ? Promise<
-        M extends _TemplateMetaType
-          ? Expand<Template<EntityByMetaType[M]>, E>
+        M extends ImplementedDocumentsMetaType
+          ? Expand<PrefilledDocument<M>, E>
           : unknown
       >
     : never
