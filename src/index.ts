@@ -3,6 +3,9 @@ import 'isomorphic-fetch'
 import Moysklad from 'moysklad'
 import once from 'lodash.once'
 import { wrapFetchApi } from 'moysklad-fetch-planner'
+import type { TypedInstance } from './TypedInstance'
+
+export * from './TypedInstance'
 
 // {
 //   eventHandler: {
@@ -13,7 +16,7 @@ import { wrapFetchApi } from 'moysklad-fetch-planner'
 // }
 
 export const getInstance = once(() => {
-  const ms = Moysklad({
+  const ms: TypedInstance = Moysklad({
     apiVersion: '1.2',
     // TODO Согласовать интерфейсы DOM и node-fetch
     // TODO window.fetch по умолчанию если не указан явно

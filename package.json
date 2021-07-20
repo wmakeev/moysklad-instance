@@ -1,6 +1,6 @@
 {
   "name": "moysklad-instance",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "Преднастроенная конфигурация библиотеки moysklad",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -8,6 +8,7 @@
     "build/src/"
   ],
   "scripts": {
+    "update": "npm i moysklad-api-model@latest moysklad@latest moysklad-fetch-planner@latest",
     "env:example": "npx sync-dotenv",
     "compile:dev": "tsc",
     "compile": "rm -rf build/ && tsc --build tsconfig.prod.json",
@@ -39,6 +40,7 @@
     "isomorphic-fetch": "^3.0.0",
     "lodash.once": "^4.1.1",
     "moysklad": "^0.10.0",
+    "moysklad-api-model": "^0.2.8",
     "moysklad-fetch-planner": "^0.0.3"
   },
   "devDependencies": {
@@ -52,6 +54,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "json": "^11.0.0",
     "prettier": "^2.3.2",
     "source-map-support": "^0.5.19",
     "tape": "^5.2.2",
