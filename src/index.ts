@@ -15,6 +15,9 @@ export * from './TypedInstance'
 //   }
 // }
 
+/**
+ * Возвращает и кеширует типизированный инстанс бибилиотеки moysklad
+ */
 export const getInstance = once(() => {
   const ms: TypedInstance = Moysklad({
     apiVersion: '1.2',
@@ -22,7 +25,7 @@ export const getInstance = once(() => {
     // TODO window.fetch по умолчанию если не указан явно
     // @ts-ignore
     fetch: wrapFetchApi(fetch)
-  })
+  }) as any
 
   return ms
 })
