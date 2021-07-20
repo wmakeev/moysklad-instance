@@ -1,6 +1,7 @@
 import type { Query, RequestOptions, Instance } from 'moysklad'
 import type {
   Collection,
+  CompanyAccountCollectionEndpoint,
   DocumentTemplateEndpoint,
   DomineEntityCollectionEndpoint,
   DomineEntityEndpoint,
@@ -21,6 +22,21 @@ export interface QueryWithExpand<T extends string | undefined> extends Query {
 type _TemplateMetaType = 'invoicein' | 'invoiceout' | 'customerorder'
 
 export type TypedInstance = {
+  //#region GET entity/{Company}/{id}/accounts
+  /**
+   * `entity/{Company}/{id}/accounts`
+   *
+   * @param path `entity/{Company}/{id}/accounts`
+   * @param query
+   * @param options
+   */
+  GET<P extends CompanyAccountCollectionEndpoint, E extends string | undefined>(
+    path: P,
+    query?: QueryWithExpand<E> | null,
+    options?: RequestOptions
+  ): Promise<Expand<Collection<'account'>, E>>
+  //#endregion
+
   //#region GET entity/{type}/{id}
   /**
    * `entity/{type}/{id}`
@@ -33,9 +49,11 @@ export type TypedInstance = {
     path: P,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): P extends DomineEntityEndpoint<infer M>
-    ? Expand<EntityByMetaType[M], E>
-    : never
+  ): Promise<
+    P extends DomineEntityEndpoint<infer M>
+      ? Expand<EntityByMetaType[M], E>
+      : never
+  >
   //#endregion
 
   //#region GET entity/{type}
@@ -50,9 +68,11 @@ export type TypedInstance = {
     path: P,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): P extends DomineEntityCollectionEndpoint<infer M>
-    ? Expand<Collection<M>, E>
-    : never
+  ): Promise<
+    P extends DomineEntityCollectionEndpoint<infer M>
+      ? Expand<Collection<M>, E>
+      : never
+  >
   //#endregion
 
   //#region POST entity/{type} - массовое обновление/создание сущностей
@@ -70,9 +90,11 @@ export type TypedInstance = {
       : never,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): P extends DomineEntityCollectionEndpoint<infer M>
-    ? Array<Expand<EntityByMetaType[M], E>>
-    : never
+  ): Promise<
+    P extends DomineEntityCollectionEndpoint<infer M>
+      ? Array<Expand<EntityByMetaType[M], E>>
+      : never
+  >
   //#endregion
 
   //#region POST entity/{type} - создание сущности
@@ -90,9 +112,11 @@ export type TypedInstance = {
       : never,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): P extends DomineEntityCollectionEndpoint<infer M>
-    ? Expand<EntityByMetaType[M], E>
-    : never
+  ): Promise<
+    P extends DomineEntityCollectionEndpoint<infer M>
+      ? Expand<EntityByMetaType[M], E>
+      : never
+  >
   //#endregion
 
   //#region PUT entity/{type}/new
@@ -109,9 +133,11 @@ export type TypedInstance = {
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
   ): P extends DocumentTemplateEndpoint<infer M>
-    ? M extends _TemplateMetaType
-      ? Expand<Template<EntityByMetaType[M]>, E>
-      : unknown
+    ? Promise<
+        M extends _TemplateMetaType
+          ? Expand<Template<EntityByMetaType[M]>, E>
+          : unknown
+      >
     : never
   //#endregion
 
@@ -128,9 +154,11 @@ export type TypedInstance = {
     payload: P extends DomineEntityEndpoint<infer M> ? Patch<M> : unknown,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): P extends DomineEntityEndpoint<infer M>
-    ? Expand<EntityByMetaType[M], E>
-    : unknown
+  ): Promise<
+    P extends DomineEntityEndpoint<infer M>
+      ? Expand<EntityByMetaType[M], E>
+      : unknown
+  >
   //#endregion
 
   //#region DELETE

@@ -1,8 +1,7 @@
-import Moysklad from 'moysklad'
-import type { Collection } from 'moysklad-api-model'
+import type { Account, Collection, Patch } from 'moysklad-api-model'
 import type { TypedInstance } from '../src'
 
-const ms: TypedInstance = Moysklad()
+const ms = {} as TypedInstance
 
 async function testCases() {
   // GET
@@ -50,6 +49,11 @@ async function testCases() {
   // @ts-expect-error
   t1_5.rows[0].state.name
 
+  const t1_6: Account[] = await ms
+    .GET('entity/organization/123-456/accounts')
+    .then(res => res.rows)
+  t1_6
+
   // PUT
 
   const t2_1 = await ms.PUT('entity/customerorder/123-456', {
@@ -67,11 +71,14 @@ async function testCases() {
   t3_1
 
   const t3_2 = await ms.POST('entity/customerorder', {
-    // TODO moysklad-api-model: обновить POST
-    // @ts-expect-error
     description: 'foo'
   })
   t3_2
+
+  const t3_3 = {} as Patch<'invoiceout'>
+
+  const t3_4 = await ms.POST('entity/invoiceout', t3_3)
+  t3_4
 
   // DELETE
 

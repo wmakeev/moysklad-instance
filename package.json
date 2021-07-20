@@ -1,6 +1,6 @@
 {
   "name": "moysklad-instance",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "Преднастроенная конфигурация библиотеки moysklad",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
