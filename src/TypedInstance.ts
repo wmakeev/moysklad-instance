@@ -2,9 +2,11 @@ import type { Instance, Query, RequestOptions } from 'moysklad'
 import type {
   Collection,
   CompanyAccountCollectionEndpoint,
+  CounterpartyReport,
   DomineEntityCollectionEndpoint,
   DomineEntityEndpoint,
   EntityByMetaType,
+  EntityRef,
   Expand,
   ImplementedDocumentsMetaType,
   Meta,
@@ -91,6 +93,26 @@ export type TypedInstance = {
       ? Array<Expand<EntityByMetaType[M], E>>
       : never
   >
+  //#endregion
+
+  //#region POST report/counterparty
+  /**
+   * `report/counterparty`
+   *
+   * @param path `report/counterparty`
+   * @param query
+   * @param options
+   */
+  POST(
+    path: 'report/counterparty',
+    payload: {
+      counterparties: Array<{
+        counterparty: EntityRef<'counterparty'>
+      }>
+    },
+    query?: null,
+    options?: RequestOptions
+  ): Promise<CounterpartyReport>
   //#endregion
 
   //#region POST entity/{type} - создание сущности

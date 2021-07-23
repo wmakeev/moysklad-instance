@@ -1,4 +1,9 @@
-import type { Account, Collection, Patch } from 'moysklad-api-model'
+import type {
+  Account,
+  Collection,
+  CounterpartyReportItem,
+  Patch
+} from 'moysklad-api-model'
 import type { TypedInstance } from '../src'
 
 const ms = {} as TypedInstance
@@ -84,6 +89,22 @@ async function testCases() {
 
   const t3_4 = await ms.POST('entity/invoiceout', t3_3)
   t3_4
+
+  const t3_5: CounterpartyReportItem = await ms
+    .POST('report/counterparty', {
+      counterparties: [
+        {
+          counterparty: {
+            meta: {
+              type: 'counterparty',
+              href: `entity/counterparty/123-456`
+            }
+          }
+        }
+      ]
+    })
+    .then(res => res.rows[0])
+  t3_5
 
   // DELETE
 
