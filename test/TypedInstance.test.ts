@@ -2,6 +2,9 @@ import type {
   Account,
   Collection,
   CounterpartyReportItem,
+  CustomerOrder,
+  EntityRef,
+  Expand,
   Patch
 } from 'moysklad-api-model'
 import type { TypedInstance } from '../src'
@@ -54,10 +57,40 @@ async function testCases() {
   // @ts-expect-error
   t1_5.rows[0].state.name
 
-  const t1_6: Account[] = await ms
+  const t6_1 = (
+    await ms.GET('entity/customerorder', {
+      expand: 'state'
+    })
+  ).rows
+
+  function selectRef(
+    doc: Expand<CustomerOrder, 'state'>
+  ): EntityRef<'customerorder'> {
+    return {
+      meta: doc.meta
+    }
+  }
+
+  const t6_2: EntityRef<'customerorder'> = selectRef(t6_1[0])
+  t6_2
+
+  // FIXME Array.map "убивает" сложный составной тип коллекции
+  const t6_3 = t6_1.map(it => {
+    // it не соответствует исходному типу t6_1
+
+    // @ts-expect-error
+    return selectRef(it)
+  })
+  t6_3
+
+  for (let it of t6_1) {
+    t6_1.push(it)
+  }
+
+  const t1_7: Account[] = await ms
     .GET('entity/organization/123-456/accounts')
     .then(res => res.rows)
-  t1_6
+  t1_7
 
   // PUT
 
@@ -97,7 +130,7 @@ async function testCases() {
           counterparty: {
             meta: {
               type: 'counterparty',
-              href: `entity/counterparty/123-456`
+              href: 'entity/counterparty/123-456'
             }
           }
         }
@@ -113,5 +146,4 @@ async function testCases() {
   const t5_1: string = ms.buildUrl('foo')
   t5_1
 }
-
 testCases
