@@ -13,20 +13,17 @@ const ms = {} as TypedInstance
 
 async function testCases() {
   // GET
-  const t1_1: Collection<'customerorder'> = await ms.GET('entity/customerorder')
+  const t1_1: Collection<CustomerOrder> = await ms.GET('entity/customerorder')
   t1_1
 
-  const t1_2: Collection<'customerorder'> = await ms.GET(
-    'entity/customerorder',
-    {
-      filter: {
-        name: 'foo'
-      }
+  const t1_2: Collection<CustomerOrder> = await ms.GET('entity/customerorder', {
+    filter: {
+      name: 'foo'
     }
-  )
+  })
   t1_2
 
-  const t1_3: Collection<'customerorder'> = await ms.GET(
+  const t1_3: Collection<CustomerOrder> = await ms.GET(
     'entity/customerorder',
     {
       filter: {
@@ -54,7 +51,7 @@ async function testCases() {
     expand: 'agent'
   })
   t1_5.rows[0].agent.name // Expanded
-  // @ts-expect-error
+  // @ts-expect-error - state not expanded
   t1_5.rows[0].state.name
 
   const t6_1 = (
@@ -74,16 +71,12 @@ async function testCases() {
   const t6_2: EntityRef<'customerorder'> = selectRef(t6_1[0])
   t6_2
 
-  // FIXME Array.map "убивает" сложный составной тип коллекции
   const t6_3 = t6_1.map(it => {
-    // it не соответствует исходному типу t6_1
-
-    // @ts-expect-error
     return selectRef(it)
   })
   t6_3
 
-  for (let it of t6_1) {
+  for (const it of t6_1) {
     t6_1.push(it)
   }
 

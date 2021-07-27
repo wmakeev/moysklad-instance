@@ -1,5 +1,6 @@
 import type { Instance, Query, RequestOptions } from 'moysklad'
 import type {
+  Account,
   Collection,
   CompanyAccountCollectionEndpoint,
   CounterpartyReport,
@@ -32,7 +33,7 @@ export type TypedInstance = {
     path: P,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
-  ): Promise<Expand<Collection<'account'>, E>>
+  ): Promise<Expand<Collection<Account>, E>>
   //#endregion
 
   //#region GET entity/{type}/{id}
@@ -68,7 +69,7 @@ export type TypedInstance = {
     options?: RequestOptions
   ): Promise<
     P extends DomineEntityCollectionEndpoint<infer M>
-      ? Expand<Collection<M>, E>
+      ? Expand<Collection<EntityByMetaType[M]>, E>
       : never
   >
   //#endregion

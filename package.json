@@ -1,6 +1,6 @@
 {
   "name": "moysklad-instance",
-  "version": "2.0.0-beta.6",
+  "version": "2.0.0-beta.7",
   "description": "Преднастроенная конфигурация библиотеки moysklad",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -40,7 +40,7 @@
     "isomorphic-fetch": "^3.0.0",
     "lodash.once": "^4.1.1",
     "moysklad": "^0.10.0",
-    "moysklad-api-model": "^0.3.0",
+    "moysklad-api-model": "^0.4.1",
     "moysklad-fetch-planner": "^0.0.3"
   },
   "devDependencies": {
