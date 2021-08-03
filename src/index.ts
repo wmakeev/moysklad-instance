@@ -23,7 +23,6 @@ export const getInstance = once(() => {
     apiVersion: '1.2',
     // TODO Согласовать интерфейсы DOM и node-fetch
     // TODO window.fetch по умолчанию если не указан явно
-    // @ts-ignore
     fetch: wrapFetchApi(fetch)
   }) as any
 
