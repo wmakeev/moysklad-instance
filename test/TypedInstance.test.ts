@@ -14,14 +14,14 @@ const ms = {} as TypedInstance
 async function testCases() {
   // GET
   const t1_1: Collection<CustomerOrder> = await ms.GET('entity/customerorder')
-  t1_1
+  t1_1.rows
 
   const t1_2: Collection<CustomerOrder> = await ms.GET('entity/customerorder', {
     filter: {
       name: 'foo'
     }
   })
-  t1_2
+  t1_2.rows
 
   const t1_3: Collection<CustomerOrder> = await ms.GET(
     'entity/customerorder',
@@ -34,7 +34,7 @@ async function testCases() {
     // FIXME Необходимо типизировать rawResponse
     { rawResponse: true }
   )
-  t1_3
+  t1_3.rows
 
   const t1_4 = await ms.GET('entity/customerorder/123-456', {
     filter: {
@@ -69,12 +69,12 @@ async function testCases() {
   }
 
   const t6_2: EntityRef<'customerorder'> = selectRef(t6_1[0])
-  t6_2
+  t6_2.meta
 
   const t6_3 = t6_1.map(it => {
     return selectRef(it)
   })
-  t6_3
+  t6_3[0].meta
 
   for (const it of t6_1) {
     t6_1.push(it)
@@ -83,14 +83,15 @@ async function testCases() {
   const t1_7: Account[] = await ms
     .GET('entity/organization/123-456/accounts')
     .then(res => res.rows)
-  t1_7
+
+  t1_7[0].accountNumber
 
   // PUT
 
   const t2_1 = await ms.PUT('entity/customerorder/123-456', {
     description: 'foo'
   })
-  t2_1
+  t2_1.agent
 
   const t2_2 = await ms.PUT('entity/customerorder/new', {
     foo: 'bar'
@@ -104,17 +105,18 @@ async function testCases() {
       description: 'foo'
     }
   ])
-  t3_1
+  t3_1[0].demands
 
   const t3_2 = await ms.POST('entity/customerorder', {
     description: 'foo'
   })
-  t3_2
+
+  t3_2.deliveryPlannedMoment
 
   const t3_3 = {} as Patch<'invoiceout'>
 
   const t3_4 = await ms.POST('entity/invoiceout', t3_3)
-  t3_4
+  t3_4.paymentPlannedMoment
 
   const t3_5: CounterpartyReportItem = await ms
     .POST('report/counterparty', {
@@ -130,7 +132,7 @@ async function testCases() {
       ]
     })
     .then(res => res.rows[0])
-  t3_5
+  t3_5.balance
 
   // DELETE
 
