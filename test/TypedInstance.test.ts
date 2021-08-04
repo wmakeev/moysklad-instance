@@ -86,6 +86,12 @@ async function testCases() {
 
   t1_7[0].accountNumber
 
+  // Nullable patch fields
+  const t1_8 = await ms.PUT('entity/customerorder/123-456', {
+    contract: null
+  })
+  t1_8.contract
+
   // PUT
 
   const t2_1 = await ms.PUT('entity/customerorder/123-456', {
