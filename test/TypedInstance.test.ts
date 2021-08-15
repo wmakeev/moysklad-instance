@@ -13,10 +13,12 @@ const ms = {} as TypedInstance
 
 async function testCases() {
   // GET
-  const t1_1: Collection<CustomerOrder> = await ms.GET('entity/customerorder')
-  t1_1.rows
+  const t1_1 = await ms.GET('entity/customerorder')
+  t1_1.rows[0].meta.type
+  const t1_1_2: Collection<CustomerOrder> = t1_1
+  t1_1_2
 
-  const t1_2: Collection<CustomerOrder> = await ms.GET('entity/customerorder', {
+  const t1_2 = await ms.GET('entity/customerorder', {
     filter: {
       name: 'foo'
     }

@@ -1,6 +1,6 @@
 {
   "name": "moysklad-instance",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Преднастроенная конфигурация библиотеки moysklad",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -17,6 +17,7 @@
     "build": "rm -rf build/ && npm run lint && npm run compile",
     "ver:patch": "json -I -f package.json -e \"this.version = '$(semver -i patch $(cat package.json | json version))'\" && git add package.json && git commit -m \"version patch\"",
     "git:tag": "git tag \"v$(cat package.json | json version)\"",
+    "npm:publish": "npm run build && npm publish && npm run git:tag && git push",
     "npm:publish:patch": "npm run build && npm run ver:patch && npm publish && npm run git:tag && git push"
   },
   "keywords": [
@@ -39,13 +40,13 @@
   "license": "ISC",
   "dependencies": {
     "isomorphic-fetch": "^3.0.0",
-    "lodash.once": "^4.1.1",
+    "lodash.memoize": "^4.1.2",
     "moysklad": "^0.10.0",
-    "moysklad-api-model": "^0.5.0",
+    "moysklad-api-model": "^0.5.1",
     "moysklad-fetch-planner": "^0.0.3"
   },
   "devDependencies": {
-    "@types/lodash.once": "^4.1.6",
+    "@types/lodash.memoize": "^4.1.6",
     "@types/node": "^14.17.3",
     "@types/tape": "^4.13.0",
     "@typescript-eslint/eslint-plugin": "^4.27.0",

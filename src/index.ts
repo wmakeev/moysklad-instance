@@ -1,7 +1,7 @@
 import 'isomorphic-fetch'
 
 import Moysklad from 'moysklad'
-import once from 'lodash.once'
+import memoize from 'lodash.memoize'
 import { wrapFetchApi } from 'moysklad-fetch-planner'
 import type { TypedInstance } from './TypedInstance'
 
@@ -16,15 +16,26 @@ export * from './TypedInstance'
 // }
 
 /**
- * Возвращает и кеширует типизированный инстанс бибилиотеки moysklad
+ * Создает и кеширует инстанс библиотеки `moysklad`
+ *
+ * @param instance Ключ инстанса (если не указан то `default`)
+ * @param options Опциональные параметры (применяются только при первом вызове)
+ * @returns Инстанс Moysklad
  */
-export const getInstance = once(() => {
-  const ms: TypedInstance = Moysklad({
-    apiVersion: '1.2',
-    // TODO Согласовать интерфейсы DOM и node-fetch
-    // TODO window.fetch по умолчанию если не указан явно
-    fetch: wrapFetchApi(fetch)
-  }) as any
+export const getInstance = memoize(
+  (instance?: string, options?: Moysklad.Options) => {
+    const ms: TypedInstance = Moysklad({
+      apiVersion: '1.2',
+      // TODO Согласовать интерфейсы DOM и node-fetch
+      // TODO window.fetch по умолчанию если не указан явно
+      fetch: wrapFetchApi(fetch),
 
-  return ms
-})
+      ...(options ? options : {})
+    }) as any
+
+    instance
+
+    return ms
+  },
+  (instance?: string) => instance ?? 'default'
+)
