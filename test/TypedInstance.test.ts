@@ -142,6 +142,19 @@ async function testCases() {
     .then(res => res.rows[0])
   t3_5.balance
 
+  // Сохранение шаблона
+  const t3_6 = await ms.PUT('entity/salesreturn/new', {
+    demand: {
+      meta: {
+        type: 'demand',
+        href: ''
+      }
+    }
+  })
+
+  const t3_7 = await ms.POST('entity/salesreturn', t3_6)
+  t3_7.name
+
   // DELETE
 
   await ms.DELETE('entity/customerorder/123-456')

@@ -9,11 +9,11 @@ import type {
   EntityByMetaType,
   EntityRef,
   Expand,
-  ImplementedDocumentsMetaType,
   Meta,
   Patch,
   PrefilledDocument,
-  PrefilledDocumentEndpoint
+  PrefilledDocumentEndpoint,
+  DocumentMetaType
 } from 'moysklad-api-model'
 
 export interface QueryWithExpand<T extends string | undefined> extends Query {
@@ -127,7 +127,9 @@ export type TypedInstance = {
   POST<P extends DomineEntityCollectionEndpoint, E extends string | undefined>(
     path: P,
     payload: P extends DomineEntityCollectionEndpoint<infer M>
-      ? Patch<M>
+      ? M extends DocumentMetaType
+        ? Patch<M> | PrefilledDocument<M>
+        : Patch<M>
       : never,
     query?: QueryWithExpand<E> | null,
     options?: RequestOptions
@@ -153,9 +155,7 @@ export type TypedInstance = {
     options?: RequestOptions
   ): P extends PrefilledDocumentEndpoint<infer M>
     ? Promise<
-        M extends ImplementedDocumentsMetaType
-          ? Expand<PrefilledDocument<M>, E>
-          : unknown
+        M extends DocumentMetaType ? Expand<PrefilledDocument<M>, E> : unknown
       >
     : never
   //#endregion
